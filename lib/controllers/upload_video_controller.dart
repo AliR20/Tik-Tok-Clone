@@ -56,7 +56,9 @@ class UploadVideoController extends GetxController {
           uid: uid,
           username: userDoc['name'],
           videoUrl: videoUrl);
+         
           await firestore.collection('videos').doc('Video $len').set(video.toJson());
+    
           Get.back();
     } catch (e) {
       print(e);
