@@ -20,8 +20,8 @@ class _CircleAnimationState extends State<CircleAnimation> with SingleTickerProv
   }
   @override
   void dispose() {
-    super.dispose();
     controller.dispose();
+    super.dispose();
   }
   @override
   Widget build(BuildContext context) {

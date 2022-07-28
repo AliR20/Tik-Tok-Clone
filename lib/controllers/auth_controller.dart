@@ -12,13 +12,14 @@ import 'package:tiktok_clone/views/screens/home_screen.dart';
 class AuthController extends GetxController {
   static AuthController instance = Get.find();
    late Rx<File?> _image;
-   late Rx<User?> user;
+   late Rx<User?> _user;
+   User get user => _user.value!;
    @override
   void onReady() {
     super.onReady();
-    user = Rx<User?>(firebaseAuth.currentUser);
-    user.bindStream(firebaseAuth.authStateChanges());
-    ever(user, setInitialScreen);
+    _user = Rx<User?>(firebaseAuth.currentUser);
+    _user.bindStream(firebaseAuth.authStateChanges());
+    ever(_user, setInitialScreen);
   }
   setInitialScreen(User? user){
     if(user == null){
@@ -83,5 +84,8 @@ await firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
       Get.snackbar('Error Loggin in', e.message!);
     }
     
+  }
+  void signOut()async{
+    await firebaseAuth.signOut();
   }
 }
